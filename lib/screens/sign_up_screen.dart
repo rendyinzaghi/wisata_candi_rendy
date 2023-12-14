@@ -13,8 +13,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String _errorText = '';
-  bool _isSignedUp = false;
   bool _obscurePassword = true;
+
+  // TODO: 1. Membuat metode sign up
+  void _signUp () async {
+    String  name = _fullNameController.text.trim();
+    String username = _usernameController.text.trim();
+    String password = _passwordController.text.trim();
+
+    if(password.length < 8 ||
+        !password.contains (RegExp(r'[A-Z]')) ||
+        !password.contains (RegExp(r'[a-z]')) ||
+        !password.contains (RegExp(r'[0-9]')) ||
+        !password.contains (RegExp(r'[!@#$%^&*():{}<>]'))) {
+      setState(() {
+        _errorText = 'Minimal 8 karakter, kombinasi[A-Z], [a-z], [0-9],!@#\\\$%^&*():{}<> ';
+      });
+      return;
+    };
+
+    print('*** Sign up berhasil!');
+    print('fullname: $name');
+    print('username: $username');
+    print('password: $password');
+  }
+
+  // TODO: 2. Membuat metode dispose
+  @override
+  void dispose(){
+    //TODO: implement dispose
+    _fullNameController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
